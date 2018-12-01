@@ -18,6 +18,7 @@ action "worker deploy" {
   secrets = [ "CLOUDFLARE_TOKEN" ]
 }
 ```
+
 _Heavily_ inspired by [Jessie Frazelle's](https://twitter.com/jessfraz) [aws-fargate-action](https://github.com/jessfraz/aws-fargate-action) GitHub action project. :trophy:
 
 ### Tests
