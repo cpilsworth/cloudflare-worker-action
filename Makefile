@@ -42,17 +42,21 @@ cf-init:
 		-backend-config "region=$(AWS_REGION)" \
 		$(CF_TERRAFORM_FLAGS)
 
+.PHONY: cf-import
+cf-import: cf-init ## Run terraform plan for Cloudflare worker.
+	@cd $(CF_DIR) && terraform import cloudflare_worker_script.worker zone:$(CLOUDFLARE_ZONE)
+
 .PHONY: cf-plan
-cf-plan: cf-init ## Run terraform plan for Amazon.
+cf-plan: cf-init ## Run terraform plan for Cloudflare worker.
 	@cd $(CF_DIR) && terraform plan $(CF_TERRAFORM_FLAGS)
 
 .PHONY: cf-apply
-cf-apply: cf-init ## Run terraform apply for Amazon.
+cf-apply: cf-init ## Run terraform apply for Cloudflare worker.
 	@cd $(CF_DIR) && terraform apply $(CF_TERRAFORM_FLAGS) \
 		$(TERRAFORM_FLAGS)
 
 .PHONY: cf-destroy
-cf-destroy: cf-init ## Run terraform destroy for Amazon.
+cf-destroy: cf-init ## Run terraform destroy for Cloudflare worker.
 	@cd $(CF_DIR) && terraform destroy \
 		$(CF_TERRAFORM_FLAGS)
 

@@ -11,5 +11,5 @@ echo "On branch ${GITHUB_REF}, deploying..."
 
 (
 cd /usr/src
-make cf-apply TERRAFORM_FLAGS=-auto-approve
+make cf-import cf-apply TERRAFORM_FLAGS=-auto-approve
 )
