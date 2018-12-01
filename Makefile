@@ -44,8 +44,7 @@ cf-init:
 
 .PHONY: cf-import
 cf-import: cf-init ## Run terraform plan for Cloudflare worker.
-	@cd $(CF_DIR) && terraform import cloudflare_worker_script.worker zone:$(CLOUDFLARE_ZONE) \
-		$(CF_TERRAFORM_FLAGS)
+	@cd $(CF_DIR) && terraform import $(CF_TERRAFORM_FLAGS) cloudflare_worker_script.worker zone:$(CLOUDFLARE_ZONE) 
 
 .PHONY: cf-plan
 cf-plan: cf-init ## Run terraform plan for Cloudflare worker.
