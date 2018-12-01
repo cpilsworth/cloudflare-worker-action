@@ -1,4 +1,10 @@
 SHELL := /bin/bash
+
+AWS_REGION := ${AWS_REGION}
+AWS_ACCESS_KEY_ID := ${AWS_ACCESS_KEY_ID}
+AWS_SECRET_ACCESS_KEY := ${AWS_SECRET_ACCESS_KEY}
+BUCKET := ${BUCKET}
+
 CLOUDFLARE_EMAIL := ${CLOUDFLARE_EMAIL}
 CLOUDFLARE_TOKEN := ${CLOUDFLARE_TOKEN}
 CLOUDFLARE_ZONE := ${CLOUDFLARE_ZONE}
@@ -7,7 +13,11 @@ WORKER_JS := ${WORKER_JS}
 
 CF_DIR=$(CURDIR)/terraform/cloudflare
 TERRAFORM_FLAGS :=
-CF_TERRAFORM_FLAGS = -var "cloudflare_email=$(CLOUDFLARE_EMAIL)" \
+CF_TERRAFORM_FLAGS =  -var "region=$(AWS_REGION)" \
+		-var "access_key=$(AWS_ACCESS_KEY_ID)" \
+		-var "secret_key=$(AWS_SECRET_ACCESS_KEY)" \
+		-var "bucket=$(BUCKET)" \
+		-var "cloudflare_email=$(CLOUDFLARE_EMAIL)" \
 		-var "cloudflare_email=$(CLOUDFLARE_EMAIL)" \
 		-var "cloudflare_token=$(CLOUDFLARE_TOKEN)" \
 		-var "zone=$(CLOUDFLARE_ZONE)" \
@@ -19,11 +29,18 @@ help:
 
 .PHONY: cf-init
 cf-init:
+	@:$(call check_defined, AWS_REGION, Amazon Region)
+	@:$(call check_defined, AWS_ACCESS_KEY_ID, Amazon Access Key ID)
+	@:$(call check_defined, AWS_SECRET_ACCESS_KEY, Amazon Secret Access Key)
+	@:$(call check_defined, BUCKET, s3 bucket name to store the terraform state)
 	@:$(call check_defined, CLOUDFLARE_EMAIL, Cloudflare email address)
 	@:$(call check_defined, CLOUDFLARE_TOKEN, Cloudflare api key)
 	@:$(call check_defined, CLOUDFLARE_ZONE, Cloudflare zone)
 	@:$(call check_defined, WORKER_JS, Worker JS file)
-	@cd $(CF_DIR) && terraform init
+	@cd $(CF_DIR) && terraform init \
+		-backend-config "bucket=$(BUCKET)" \
+		-backend-config "region=$(AWS_REGION)" \
+		$(CF_TERRAFORM_FLAGS)
 
 .PHONY: cf-plan
 cf-plan: cf-init ## Run terraform plan for Amazon.
