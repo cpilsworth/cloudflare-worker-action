@@ -18,11 +18,12 @@ action "worker deploy" {
   secrets = [ "CLOUDFLARE_TOKEN" ]
 }
 ```
+_Heavily_ inspired by [Jessie Frazelle's](https://twitter.com/jessfraz) [aws-fargate-action](https://github.com/jessfraz/aws-fargate-action) GitHub action project. :trophy:
 
 ### Tests
 
 The tests use [shellcheck](https://github.com/koalaman/shellcheck). You don't
-need to install anything. They run in a container.
+need to install anything. They run in a container. 
 
 ```console
 $ make test
