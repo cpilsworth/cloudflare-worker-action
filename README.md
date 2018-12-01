@@ -1,5 +1,7 @@
 # Cloudflare Worker GitHub Action
 
+[![Build Status](https://travis-ci.org/cpilsworth/cloudflare-worker-action.svg?branch=master)](https://travis-ci.org/cpilsworth/cloudflare-worker-action)
+
 A GitHub action to deploy a Cloudflare Worker on push to the master branch. 
 
 ```hcl
