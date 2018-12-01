@@ -1,4 +1,4 @@
-# Cloudflare Worker Action
+# Cloudflare Worker GitHub Action
 
 A GitHub action to deploy a Cloudflare Worker on push to the master branch. 
 
