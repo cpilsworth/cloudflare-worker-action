@@ -2,7 +2,7 @@
 
 A GitHub action to deploy a Cloudflare Worker on push to the master branch. 
 
-```
+```hcl
 workflow "on push to master, deploy worker to Cloudflare" {
   on = "push"
   resolves = ["worker deploy"]
