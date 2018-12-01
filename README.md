@@ -11,11 +11,11 @@ workflow "on push to master, deploy worker to Cloudflare" {
 action "worker deploy" {
   uses = "cpilsworth/cloudflare-worker-action@master"
   env = {
-    CLOUDFLARE_EMAIL = "you@example.com"
-    CLOUDFLARE_ZONE = "diffa.co.uk"
-    WORKER_JS = "bin/worker.js"
+    CLOUDFLARE_EMAIL = "you@example.com",
+    CLOUDFLARE_ZONE = "diffa.co.uk",
+    WORKER_JS = "bin/worker.js",
   }
-  secrets = ["CLOUDFLARE_TOKEN", "AWS_SECRET_ACCESS_KEY"]
+  secrets = [ "CLOUDFLARE_TOKEN" ]
 }
 ```
 
